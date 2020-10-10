@@ -120,7 +120,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         onCancel: () => _onPressedCancel(),
         onConfirm: () => _onPressedConfirm(),
       );
-      return Column(children: <Widget>[titleWidget, datePickerWidget]);
+      return Column(children: <Widget>[widget.dateFormat=="yyyy|MM,dd"?Container():titleWidget, datePickerWidget]);
     }
     return datePickerWidget;
   }
@@ -176,10 +176,9 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget _renderDatePickerWidget() {
     List<Widget> pickers = List<Widget>();
     List<String> formatArr =
-        DateTimeFormatter.splitDateFormat(widget.dateFormat);
+    DateTimeFormatter.splitDateFormat(widget.dateFormat);
     formatArr.forEach((format) {
       List<int> valueRange = _findPickerItemRange(format);
-
       Widget pickerColumn = _renderDatePickerColumnComponent(
         scrollCtrl: _findScrollCtrl(format),
         valueRange: valueRange,
@@ -232,7 +231,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       child: Text(
         DateTimeFormatter.formatDateTime(value, format, widget.locale),
         style:
-            widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+        widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
       ),
     );
   }
